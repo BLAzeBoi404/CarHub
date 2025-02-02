@@ -1,0 +1,284 @@
+/* Основные стили карточек */
+.listing-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #006d4d, #4e8c7c); /* Темный изумруд с градиентом */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+  margin: 10px;
+  height: 350px;
+  width: 300px;
+  overflow: hidden;
+}
+
+.listing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: #2ecc71; /* Светлый зеленый оттенок при наведении */
+}
+
+/* Контейнер для изображения */
+.image-container {
+  height: 180px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Подгонка картинки под размеры контейнера */
+}
+
+/* Данные карточки */
+.details {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #000; /* Черный текст */
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #dcdcdc; /* Светлый цвет для описания */
+}
+
+.price {
+  font-size: 1.2rem;
+  color: #27ae60;
+  font-weight: bold;
+  margin-top: auto;
+  font-size: 1.2rem;
+}
+
+/* Стили для фильтра */
+.filter {
+  background-color: #4caf50; /* Светло-зеленый фон */
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.filter-group {
+  flex: 1 1 calc(33% - 15px); /* 3 колонки */
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #ffffff; /* Белый текст */
+}
+
+.filter-group select,
+.filter-group input {
+  border: 1px solid #ccc; /* Светло-серая рамка */
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  background-color: #ffffff; /* Белый фон */
+  color: #333;
+}
+
+button {
+  background-color: #388e3c; /* Темно-зеленая кнопка */
+  color: white;
+}
+
+button:hover {
+  background-color: #2e7d32; /* Темнее при наведении */
+}
+
+button:active {
+  background-color: #1b5e20; /* Еще темнее при нажатии */
+}
+
+/* Адаптивность для разных устройств */
+@media (max-width: 768px) {
+  .video-overlay {
+    font-size: 2rem;
+  }
+  .button {
+    font-size: 1rem;
+  }
+
+  /* Фильтр и карточки на мобильных */
+  .filter-group {
+    flex: 1 1 100%; /* В одну колонку */
+  }
+
+  .listing-card {
+    width: 100%; /* Карточки занимают всю ширину экрана */
+    height: auto; /* Автоматическая высота для карточек */
+  }
+}
+
+@media (max-width: 480px) {
+  .video-overlay {
+    font-size: 1.5rem;
+  }
+  .button {
+    font-size: 0.9rem;
+  }
+
+  .listing-card {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Обновленные стили для формы входа */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  gap: 20px;
+  background: linear-gradient(135deg, #006d4d, #4e8c7c); /* Темный изумруд с градиентом */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 50px auto;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #000; /* Черный цвет для заголовков */
+  text-align: center;
+}
+
+form {
+  width: 100%;
+}
+
+label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #555; /* Темный цвет для текста */
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alternative-actions {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.alternative-actions p {
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* Обновленные стили для формы Sell */
+.sell-form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #006d4d, #4e8c7c); /* Темный изумруд с градиентом */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #000; /* Черный цвет для заголовка */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+.upload-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit {
+  background: #007bff;
+  color: white;
+}
+
+.submit:hover {
+  background: #0056b3;
+}
+
+.back {
+  background: gray;
+  color: white;
+}
+
+.back:hover {
+  background: darkgray;
+}
