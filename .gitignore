@@ -24,5 +24,4 @@ dist-ssr
 *.sln
 *.sw?
 
-# Exclude large files like video
-*.mp4
+

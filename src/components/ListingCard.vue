@@ -37,7 +37,7 @@ const formatPrice = (price) => {
 
 <style scoped>
 .listing-card {
-  background: linear-gradient(135deg, #1d4b33, #27ae60); /* Новый градиентный фон */
+  background: linear-gradient(135deg, #1d4b33, #27ae60);
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -51,13 +51,8 @@ const formatPrice = (price) => {
   justify-content: space-between;
 }
 
-.listing-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
 .image-container {
-  height: 220px;
+  height: 200px;
   overflow: hidden;
   border-bottom: 2px solid #fff;
 }
@@ -72,7 +67,7 @@ img {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: rgba(0, 0, 0, 0.6); 
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
 }
 
@@ -83,31 +78,9 @@ h3 {
   text-transform: capitalize;
 }
 
-p {
-  font-size: 1.1rem;
-  margin-bottom: 12px;
-  color: #ddd;
-}
-
 .price {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #ffab00; /* Яркий цвет для цены */
-}
-
-.detail-button {
-  background-color: #0095FF;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  text-align: center;
-  transition: background-color 0.3s;
-}
-
-.detail-button:hover {
-  background-color: #007acc;
+  color: #ffab00;
 }
 </style>
