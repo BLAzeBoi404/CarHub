@@ -1,7 +1,7 @@
 <template>
   <div v-if="listing" class="listing-details-container">
     <div class="image-section">
-      <img :src="listing.image" alt="car image" />
+      <img :src="listing.image" alt="toyota_camry 2020.png" />
     </div>
     <div class="details-section">
       <h1>{{ listing.title }}</h1>

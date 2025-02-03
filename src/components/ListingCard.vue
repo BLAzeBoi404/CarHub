@@ -1,39 +1,29 @@
 <template>
-  <div class="listing-card" @click="goToDetails">
+  <div class="listing-card">
     <div class="image-container">
-      <img :src="listing.image" alt="listing.title" />
+      <img 
+        v-if="listing.images && listing.images.length" 
+        :src="listing.images[0]" 
+        :alt="listing.title" 
+        class="listing-image"
+      />
     </div>
     <div class="details">
-      <h3>{{ listing.title }}</h3>
-      <p>{{ listing.description }}</p>
-      <p class="price">{{ formatPrice(listing.price) }}</p>
-      <button class="detail-button">Подробнее</button>
+      <h3 class="title">{{ listing.title }}</h3>
+      <p class="description">{{ listing.description }}</p>
+      <p class="price">{{ listing.price.toLocaleString() }} грн</p>
+      <button class="details-button">Подробнее</button>
     </div>
   </div>
 </template>
 
-<script setup>
-import { useRouter } from 'vue-router';
-
-// Получаем данные о listing через props
-const props = defineProps({
-  listing: Object, // Убедитесь, что передаете объект listing
-});
-
-const router = useRouter();
-
-// Переход на страницу с полным описанием
-const goToDetails = () => {
-  router.push({ name: 'listing-details', params: { id: props.listing.id } });
+<script>
+export default {
+  props: {
+    listing: Object
+  }
 };
-
-const formatPrice = (price) => {
-  return new Intl.NumberFormat("uk-UA", {
-    style: "currency",
-    currency: "UAH",
-  }).format(price);
-};
-</script>
+</script> 
 
 <style scoped>
 .listing-card {
@@ -61,6 +51,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  margin-bottom: 5px; /* Разделение изображений */
 }
 
 .details {
