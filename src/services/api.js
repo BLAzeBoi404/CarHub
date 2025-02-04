@@ -7,8 +7,8 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-export const fetchListings = () => api.get('/api/listings'); // Должно быть /api/listings
-
+// Функция для установки токена авторизации
+export function setAuthToken(token) {
   if (token) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     localStorage.setItem('token', token);
@@ -16,7 +16,14 @@ export const fetchListings = () => api.get('/api/listings'); // Должно б�
     delete api.defaults.headers.common['Authorization'];
     localStorage.removeItem('token');
   }
+}
 
+// Установка токена, если он есть в localStorage
+const token = localStorage.getItem('token');
+setAuthToken(token);  // Используем функцию для установки токена
+
+// Экспорты функций API
+export const fetchListings = () => api.get('/api/listings');
 
 export function registerUser(userData) {
   return api.post('/api/register', userData);
@@ -24,10 +31,6 @@ export function registerUser(userData) {
 
 export function loginUser(userData) {
   return api.post('/api/login', userData);
-}
-
-export function fetchListings() {
-  return api.get('/api/listings');
 }
 
 export function fetchListingById(id) {

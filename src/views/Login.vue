@@ -18,7 +18,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { loginUser } from "@/api"; // Убедись, что путь правильный
+import { loginUser } from "@/services/api";
 
 const router = useRouter();
 const email = ref("");

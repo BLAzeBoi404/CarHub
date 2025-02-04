@@ -13,7 +13,7 @@ export const useListingsStore = defineStore("listings", {
         region: "Київ",
         year: 2020,
         mileage: 50000,
-        images: ["public/assets/toyota_camry_2020.png"], // ✅ Путь исправлен
+        images: ["/assets/toyota_camry_2020.png"], // ✅ Путь исправлен
         owner: {
           name: "Іван Іванов",
           email: "owner1@example.com",
