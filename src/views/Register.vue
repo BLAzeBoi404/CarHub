@@ -1,62 +1,24 @@
-<script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { useAuthStore } from "@/store/auth";
+<template>
+  <div class="register-container">
+    <h2>Регистрация</h2>
+    <form @submit.prevent="handleRegister">
+      <input v-model="username" type="text" placeholder="Имя пользователя" />
+      <input v-model="password" type="password" placeholder="Пароль" />
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+  </div>
+</template>
 
-const router = useRouter();
+<script setup>
+import { ref } from 'vue';
+import { useAuthStore } from '@/store/auth';
+
 const authStore = useAuthStore();
+const username = ref('');
+const password = ref('');
 
-const username = ref("");
-const phone = ref("");
-const email = ref("");
-const password = ref("");
-const loading = ref(false);
-
-const handleSubmit = async () => {
-  loading.value = true;
-  try {
-    await authStore.register(username.value, phone.value, email.value, password.value);
-    router.push("/profile");
-  } catch (err) {
-    console.error("Ошибка при регистрации:", err);
-  } finally {
-    loading.value = false;
-  }
-};
-</script>
-
-
-<script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import axios from "axios";
-
-const router = useRouter();
-const username = ref("");
-const phone = ref("");
-const email = ref("");
-const password = ref("");
-const loading = ref(false);
-
-// Функция для обработки отправки формы
-const handleSubmit = async () => {
-  loading.value = true;
-  try {
-    const data = {
-      username: username.value,
-      phone: phone.value,
-      email: email.value,
-      password: password.value
-    };
-
-    let response = await axios.post("/api/register", data);
-    localStorage.setItem("user", JSON.stringify(response.data));
-    router.push("/profile"); // Перенаправление на профиль
-  } catch (err) {
-    console.error("Ошибка при обработке запроса:", err);
-  } finally {
-    loading.value = false;
-  }
+const handleRegister = async () => {
+  await authStore.register({ username: username.value, password: password.value });
 };
 </script>
 

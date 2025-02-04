@@ -7,8 +7,8 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-// Функция для установки токена в заголовки
-export function setAuthToken(token) {
+export const fetchListings = () => api.get('/api/listings'); // Должно быть /api/listings
+
   if (token) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     localStorage.setItem('token', token);
@@ -16,7 +16,7 @@ export function setAuthToken(token) {
     delete api.defaults.headers.common['Authorization'];
     localStorage.removeItem('token');
   }
-}
+
 
 export function registerUser(userData) {
   return api.post('/api/register', userData);
