@@ -8,19 +8,9 @@
       <label for="password">Пароль</label>
       <input type="password" id="password" v-model="password" required />
 
-      <div class="remember-me">
-        <input type="checkbox" v-model="rememberMe" />
-        <label>Запам'ятати мене</label>
-      </div>
-
       <button type="submit" :disabled="loading">Вхід</button>
 
-      <div class="alternative-actions">
-        <p>
-          Не маєте акаунту?
-          <router-link to="/register" class="register-link">Зареєструватись</router-link>
-        </p>
-      </div>
+      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </form>
   </div>
 </template>
@@ -28,35 +18,30 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
+import { loginUser } from "@/api"; // Убедись, что путь правильный
 
 const router = useRouter();
 const email = ref("");
 const password = ref("");
-const rememberMe = ref(false);
 const loading = ref(false);
+const errorMessage = ref("");
 
-// Функция для обработки отправки формы
 const handleSubmit = async () => {
   loading.value = true;
+  errorMessage.value = "";
   try {
-    const data = { email: email.value, password: password.value };
-    let response = await axios.post("/api/login", data);
-    
+    const response = await loginUser({ email: email.value, password: password.value });
     localStorage.setItem("user", JSON.stringify(response.data));
-
-    if (rememberMe.value) {
-      localStorage.setItem("rememberMe", true); // Запомнить пользователя
-    }
-
-    router.push("/profile"); // Перенаправление на профиль
+    router.push("/profile");
   } catch (err) {
-    console.error("Ошибка при обработке запроса:", err);
+    errorMessage.value = "Ошибка входа: " + (err.response?.data?.message || "Невідомо");
   } finally {
     loading.value = false;
   }
 };
 </script>
+
+
 
 <style scoped>
 .auth-container {

@@ -1,31 +1,30 @@
-<template>
-  <div class="auth-container">
-    <h2>Реєстрація</h2>
-    <form @submit.prevent="handleSubmit">
-      <!-- Поля для регистрации -->
-      <label for="username">Ім'я користувача</label>
-      <input type="text" id="username" v-model="username" required />
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "@/store/auth";
 
-      <label for="phone">Номер телефону</label>
-      <input type="text" id="phone" v-model="phone" required />
+const router = useRouter();
+const authStore = useAuthStore();
 
-      <label for="email">Email</label>
-      <input type="email" id="email" v-model="email" required />
+const username = ref("");
+const phone = ref("");
+const email = ref("");
+const password = ref("");
+const loading = ref(false);
 
-      <label for="password">Пароль</label>
-      <input type="password" id="password" v-model="password" required />
+const handleSubmit = async () => {
+  loading.value = true;
+  try {
+    await authStore.register(username.value, phone.value, email.value, password.value);
+    router.push("/profile");
+  } catch (err) {
+    console.error("Ошибка при регистрации:", err);
+  } finally {
+    loading.value = false;
+  }
+};
+</script>
 
-      <button type="submit" :disabled="loading">Зареєструватись</button>
-
-      <div class="alternative-actions">
-        <p>
-          Вже є акаунт?
-          <router-link to="/login" class="login-link">Увійти</router-link>
-        </p>
-      </div>
-    </form>
-  </div>
-</template>
 
 <script setup>
 import { ref } from "vue";

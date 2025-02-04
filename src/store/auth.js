@@ -1,40 +1,43 @@
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import { loginUser, registerUser, setAuthToken } from '@/api';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
-    token: localStorage.getItem('token') || ''
+    token: localStorage.getItem('token') || '',
   }),
 
   actions: {
-    async login(username, password) {
+    async login(email, password) {
       try {
-        const response = await axios.post('/api/login', { username, password });
+        const response = await loginUser({ email, password });
         this.token = response.data.token;
-        localStorage.setItem('token', this.token); // TODO: Перенести токен в secure storage
-        axios.defaults.headers['Authorization'] = `Bearer ${this.token}`;
+        this.user = response.data.user;
+        setAuthToken(this.token);
       } catch (error) {
-        // TODO: Добавить обработку ошибок (например, вывести уведомление)
-        console.error('Login failed', error);
+        console.error('Ошибка при входе:', error);
       }
     },
 
-    async logout() {
+    async register(username, phone, email, password) {
+      try {
+        const response = await registerUser({ username, phone, email, password });
+        this.token = response.data.token;
+        this.user = response.data.user;
+        setAuthToken(this.token);
+      } catch (error) {
+        console.error('Ошибка при регистрации:', error);
+      }
+    },
+
+    logout() {
       this.token = '';
       this.user = null;
-      localStorage.removeItem('token');
-      delete axios.defaults.headers['Authorization'];
+      setAuthToken(null);
     },
 
-    async getUserInfo() {
-      // TODO: Реализовать запрос для получения информации о пользователе
-      try {
-        const response = await axios.get('/api/me');  // Эндпоинт, который возвращает данные пользователя
-        this.user = response.data;
-      } catch (error) {
-        console.error('Failed to fetch user info', error);
-      }
-    }
-  }
+    async fetchUser() {
+      // Можно добавить метод для получения данных пользователя
+    },
+  },
 });
