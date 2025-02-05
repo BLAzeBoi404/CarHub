@@ -16,30 +16,31 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { loginUser } from "@/services/api";
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { loginUser } from '@/services/api'; // Путь до api.js через alias '@' (если настроен в проекте)
 
 const router = useRouter();
-const email = ref("");
-const password = ref("");
+const email = ref('');
+const password = ref('');
 const loading = ref(false);
-const errorMessage = ref("");
+const errorMessage = ref('');
 
 const handleSubmit = async () => {
   loading.value = true;
-  errorMessage.value = "";
+  errorMessage.value = '';
   try {
     const response = await loginUser({ email: email.value, password: password.value });
-    localStorage.setItem("user", JSON.stringify(response.data));
-    router.push("/profile");
+    localStorage.setItem('user', JSON.stringify(response.data));
+    router.push('/profile');
   } catch (err) {
-    errorMessage.value = "Ошибка входа: " + (err.response?.data?.message || "Невідомо");
+    errorMessage.value = 'Ошибка входа: ' + (err.response?.data?.message || 'Невідомо');
   } finally {
     loading.value = false;
   }
 };
 </script>
+
 
 
 

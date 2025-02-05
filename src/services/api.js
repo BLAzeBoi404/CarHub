@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+// Определяем базовый URL API
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://back-production-cf67.up.railway.app';
 
+// Создаем экземпляр axios с настройками
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
@@ -22,17 +24,16 @@ export function setAuthToken(token) {
 const token = localStorage.getItem('token');
 setAuthToken(token);  // Используем функцию для установки токена
 
-// Экспорты функций API
+// Экспортируем функции API для работы с объявлениями
 export const fetchListings = () => api.get('/api/listings');
+export const fetchListingById = (id) => api.get(`/api/listings/${id}`);
 
+// Функция для регистрации пользователя
 export function registerUser(userData) {
   return api.post('/api/register', userData);
 }
 
+// Функция для логина пользователя
 export function loginUser(userData) {
   return api.post('/api/login', userData);
-}
-
-export function fetchListingById(id) {
-  return api.get(`/api/listings/${id}`);
 }
