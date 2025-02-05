@@ -40,29 +40,26 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
-import { useListingsStore } from '@/store/listings';
 import { ref, onMounted } from 'vue';
+import { fetchListingById } from '@/services/api';
 
 const route = useRoute();
-const listingsStore = useListingsStore();
 const listing = ref(null);
+const loading = ref(true);
+const error = ref(null);
 
-onMounted(() => {
-  const foundListing = listingsStore.listings.find(item => item.id === parseInt(route.params.id));
-  listing.value = foundListing || null;
+onMounted(async () => {
+  try {
+    const response = await fetchListingById(route.params.id);
+    listing.value = response.data;
+  } catch {
+    error.value = 'Ошибка загрузки данных';
+  } finally {
+    loading.value = false;
+  }
 });
-
-const formatPrice = (price) => {
-  return new Intl.NumberFormat("uk-UA", {
-    style: "currency",
-    currency: "UAH",
-  }).format(price);
-};
-
-const goToContact = () => {
-  alert("Переход на страницу для связи с владельцем.");
-};
 </script>
+
 
 <style scoped>
 .listing-details-container {

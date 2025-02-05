@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { useAuthStore } from '@/store/auth';
-
 import Home from '@/views/Home.vue';
 import Listings from '@/views/Listings.vue';
 import ListingDetails from '@/views/ListingDetails.vue';
@@ -14,65 +12,60 @@ import NotFound from '@/views/NotFound.vue';
 const routes = [
   { path: '/', component: Home },
   { path: '/listings', component: Listings },
-  { path: '/listings/:id', name: 'listing-details', component: ListingDetails },
+  { path: '/listing/:id', name: 'listing-details', component: ListingDetails },
   { path: '/sell', component: Sell },
-
   {
     path: '/profile',
     name: 'profile',
     component: Profile,
     beforeEnter: (to, from, next) => {
-      const authStore = useAuthStore();
-      if (!authStore.token) {
+      const user = localStorage.getItem('user');
+      if (!user) {
         next('/login');
       } else {
         next();
       }
     },
   },
-
   {
     path: '/login',
     name: 'login',
     component: Login,
     beforeEnter: (to, from, next) => {
-      const authStore = useAuthStore();
-      if (authStore.token) {
+      const user = localStorage.getItem('user');
+      if (user) {
         next('/profile');
       } else {
         next();
       }
     },
   },
-
   {
     path: '/register',
     name: 'register',
     component: Register,
     beforeEnter: (to, from, next) => {
-      const authStore = useAuthStore();
-      if (authStore.token) {
+      const user = localStorage.getItem('user');
+      if (user) {
         next('/profile');
       } else {
         next();
       }
     },
   },
-
   {
     path: '/admin',
     name: 'admin',
     component: AdminProfile,
     beforeEnter: (to, from, next) => {
-      const authStore = useAuthStore();
-      if (authStore.user && authStore.user.role === 'admin') {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user && user.role === 'admin') {
         next();
       } else {
         next('/login');
       }
     },
   },
-
   { path: '/:catchAll(.*)', component: NotFound },
 ];
 
